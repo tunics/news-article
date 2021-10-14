@@ -8,11 +8,14 @@ module.exports = {
     mode: "development",
     devtool: "source-map",
     stats: "verbose",
+    output: {
+        libraryTarget: "var",
+        library: "Client",
+    },
     module: {
         rules: [
             {
-                // prettier-ignore
-                test: '/\.js$/',
+                test: "/.js$/",
                 exclude: /node_modules/,
                 loader: "babel-loader",
             },
