@@ -12,12 +12,20 @@ module.exports = {
         libraryTarget: "var",
         library: "Client",
     },
+    devServer: {
+        port: 9000,
+    },
     module: {
         rules: [
             {
-                test: "/.js$/",
+                // prettier-ignore
+                test: "/\.js$/",
                 exclude: /node_modules/,
                 loader: "babel-loader",
+            },
+            {
+                test: /\.scss$/,
+                use: ["style-loader", "css-loader", "sass-loader"],
             },
         ],
     },

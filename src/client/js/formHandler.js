@@ -49,7 +49,7 @@ const getAnalysis = async (url, key, lang) => {
 };
 
 const updateUI = async () => {
-    fetch("http://localhost:8081/addEntry")
+    fetch("http://localhost:3000/addEntry")
         .then((res) => res.json())
         .then(function (res) {
             resultsTxt.innerHTML = "Analysis Results: ";
@@ -70,7 +70,7 @@ function handleSubmit(event) {
         // prettier-ignore
         getAnalysis(formText, apiKey, lang)
             .then(function(data) {
-                postData("http://localhost:8081/addEntry", {
+                postData("http://localhost:3000/addEntry", {
                     agreement: data.agreement,
                     confidence: data.confidence,
                     irony: data.irony,
