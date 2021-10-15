@@ -38,10 +38,7 @@ const getAnalysis = async (url, key, lang) => {
         redirect: "follow",
     };
 
-    const response = await fetch(
-        "https://api.meaningcloud.com/sentiment-2.1",
-        requestOptions
-    );
+    const response = await fetch(baseURL, requestOptions);
 
     try {
         const allData = await response.json();
@@ -66,24 +63,25 @@ const updateUI = async () => {
 function handleSubmit(event) {
     event.preventDefault();
 
-    // check what text was put into the form field
     let formText = document.getElementById("name").value;
-    Client.checkForName(formText);
 
-    // prettier-ignore
-    getAnalysis(formText, apiKey, lang)
-        .then(function(data) {
-            console.log(data);
-
-            postData("http://localhost:8081/addEntry", {
-                agreement: data.agreement,
-                confidence: data.confidence,
-                irony: data.irony,
-                subjectivity: data.subjectivity,
-            });
+    // Check for a valid url
+    if (Client.isUrl(formText)) {
+        // prettier-ignore
+        getAnalysis(formText, apiKey, lang)
+            .then(function(data) {
+                postData("http://localhost:8081/addEntry", {
+                    agreement: data.agreement,
+                    confidence: data.confidence,
+                    irony: data.irony,
+                    subjectivity: data.subjectivity,
+                });
             console.log("::: Form Submitted :::");
-        })
-        .then(updateUI)
+            })
+            .then(updateUI)
+    } else {
+        alert("Please, enter a valid URL.");
+    }
 }
 
 export { handleSubmit };
