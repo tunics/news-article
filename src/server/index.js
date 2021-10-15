@@ -40,7 +40,10 @@ app.post("/addEntry", addEntry);
 
 function addEntry(req, res) {
     newEntry = {
-        message: req.body.message,
+        agreement: req.body.agreement,
+        confidence: req.body.confidence,
+        irony: req.body.irony,
+        subjectivity: req.body.subjectivity,
     };
     projectData = newEntry;
     console.log("posting data: " + projectData);

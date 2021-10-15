@@ -1,8 +1,11 @@
 const baseURL = "https://api.meaningcloud.com/sentiment-2.1";
 const apiKey = "c9f5695f138d2189d763edca7ccee474";
 const lang = "en";
-const url =
-    "https://www.androidauthority.com/samsung-galaxy-s21-ultra-vs-iphone-13-pro-max-camera-test-3034358/"; //apagar
+const resultsTxt = document.getElementById("results");
+const agreementTxt = document.getElementById("agreement");
+const confidenceTxt = document.getElementById("confidence");
+const ironyTxt = document.getElementById("irony");
+const subjectivityTxt = document.getElementById("subjectivity");
 
 // Async POST
 const postData = async (url = "", data = {}) => {
@@ -23,7 +26,7 @@ const postData = async (url = "", data = {}) => {
     }
 };
 
-function getAnalysis(url, key, lang) {
+const getAnalysis = async (url, key, lang) => {
     const formdata = new FormData();
     formdata.append("key", key);
     formdata.append("url", url);
@@ -35,18 +38,30 @@ function getAnalysis(url, key, lang) {
         redirect: "follow",
     };
 
-    const response = fetch(
+    const response = await fetch(
         "https://api.meaningcloud.com/sentiment-2.1",
         requestOptions
-    )
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            return data;
-        })
+    );
 
-        .catch((error) => console.log("error", error));
-}
+    try {
+        const allData = await response.json();
+        return allData;
+    } catch (error) {
+        console.log("error", error);
+    }
+};
+
+const updateUI = async () => {
+    fetch("http://localhost:8081/addEntry")
+        .then((res) => res.json())
+        .then(function (res) {
+            resultsTxt.innerHTML = "Analysis Results: ";
+            agreementTxt.innerHTML = "Agreement: " + res.agreement;
+            confidenceTxt.innerHTML = "Confidence: " + res.confidence;
+            ironyTxt.innerHTML = "Irony: " + res.irony;
+            subjectivityTxt.innerHTML = "Subjectivity: " + res.subjectivity;
+        });
+};
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -55,18 +70,20 @@ function handleSubmit(event) {
     let formText = document.getElementById("name").value;
     Client.checkForName(formText);
 
-    getAnalysis(formText, apiKey, lang);
+    // prettier-ignore
+    getAnalysis(formText, apiKey, lang)
+        .then(function(data) {
+            console.log(data);
 
-    postData("http://localhost:8081/addEntry", {
-        message: formText,
-    });
-
-    console.log("::: Form Submitted :::");
-    fetch("http://localhost:8081/addEntry")
-        .then((res) => res.json())
-        .then(function (res) {
-            document.getElementById("results").innerHTML = res.message;
-        });
+            postData("http://localhost:8081/addEntry", {
+                agreement: data.agreement,
+                confidence: data.confidence,
+                irony: data.irony,
+                subjectivity: data.subjectivity,
+            });
+            console.log("::: Form Submitted :::");
+        })
+        .then(updateUI)
 }
 
 export { handleSubmit };
