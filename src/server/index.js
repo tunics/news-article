@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -18,6 +21,7 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require("cors");
+const { get } = require("http");
 app.use(cors());
 
 console.log(__dirname);
@@ -53,3 +57,13 @@ app.get("/addEntry", function (req, res) {
     res.send(projectData);
     console.log("sending data: " + projectData);
 });
+
+app.get("/key", function (req, res) {
+    const key = {
+        key: process.env.API_KEY,
+    };
+    console.log(key.key);
+    res.send(key);
+});
+
+console.log(process.env.API_KEY);

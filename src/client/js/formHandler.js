@@ -6,10 +6,6 @@ const lang = "en";
 const results = document.getElementById("results").firstElementChild;
 const resultList = document.getElementById("result-list");
 const resultsTxt = document.getElementById("results-title");
-const agreementTxt = document.getElementById("agreement");
-const confidenceTxt = document.getElementById("confidence");
-const ironyTxt = document.getElementById("irony");
-const subjectivityTxt = document.getElementById("subjectivity");
 
 // Async POST
 const postData = async (url = "", data = {}) => {
@@ -76,18 +72,21 @@ function handleSubmit(event) {
 
     // Check for a valid url
     if (Client.isUrl(formText)) {
-        // prettier-ignore
-        getAnalysis(formText, apiKey, lang)
-            .then(function(data) {
-                postData("http://localhost:3000/addEntry", {
-                    agreement: data.agreement,
-                    confidence: data.confidence,
-                    irony: data.irony,
-                    subjectivity: data.subjectivity,
-                });
-            console.log("::: Form Submitted :::");
-            })
-            .then(updateUI)
+        fetch("http://localhost:3000/key")
+            .then((res) => res.json())
+            .then(function (res) {
+                getAnalysis(formText, res.key, lang)
+                    .then(function (data) {
+                        postData("http://localhost:3000/addEntry", {
+                            agreement: data.agreement,
+                            confidence: data.confidence,
+                            irony: data.irony,
+                            subjectivity: data.subjectivity,
+                        });
+                        console.log("::: Form Submitted :::");
+                    })
+                    .then(updateUI);
+            });
     } else {
         alert("Please, enter a valid URL.");
     }
