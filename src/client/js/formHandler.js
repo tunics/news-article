@@ -1,7 +1,11 @@
+import { result } from "lodash";
+
 const baseURL = "https://api.meaningcloud.com/sentiment-2.1";
 const apiKey = "c9f5695f138d2189d763edca7ccee474";
 const lang = "en";
-const resultsTxt = document.getElementById("results");
+const results = document.getElementById("results").firstElementChild;
+const resultList = document.getElementById("result-list");
+const resultsTxt = document.getElementById("results-title");
 const agreementTxt = document.getElementById("agreement");
 const confidenceTxt = document.getElementById("confidence");
 const ironyTxt = document.getElementById("irony");
@@ -52,11 +56,16 @@ const updateUI = async () => {
     fetch("http://localhost:3000/addEntry")
         .then((res) => res.json())
         .then(function (res) {
+            results.style.display = "block";
             resultsTxt.innerHTML = "Analysis Results: ";
-            agreementTxt.innerHTML = "Agreement: " + res.agreement;
-            confidenceTxt.innerHTML = "Confidence: " + res.confidence;
-            ironyTxt.innerHTML = "Irony: " + res.irony;
-            subjectivityTxt.innerHTML = "Subjectivity: " + res.subjectivity;
+            resultList.innerHTML = "";
+
+            for (let key in res) {
+                resultList.insertAdjacentHTML(
+                    "beforeend",
+                    `<li><span class="topic">${key}:</span>  ${res[key]}</li>`
+                );
+            }
         });
 };
 

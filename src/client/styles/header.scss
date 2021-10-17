@@ -1,6 +1,13 @@
+@import "colors";
+
 header {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
-    background-color: green;
+    justify-content: center;
+    padding: 2rem;
+    background-color: $bg-dark;
+
+    & img {
+        width: 100%;
+        max-width: 200px;
+    }
 }

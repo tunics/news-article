@@ -1,12 +1,49 @@
+@import "colors";
+
 form {
-    border: 1px solid #545454;
-    border-radius: 3px;
-    padding: 40px;
+    border-radius: 5px;
+    padding: 2rem;
+    margin: 2rem 2rem 0 2rem;
+    background-color: $bg-dark;
 }
 
 input {
-    padding: 5px 20px;
+    border-radius: 3px;
+    padding: 0.5rem;
     width: 100%;
-    line-height: 16px;
-    margin: 10px 0;
+    line-height: 1rem;
+    margin: 0.5rem 0;
+    border: none;
+    background-color: $basic-light;
+    color: $bg-dark;
+}
+
+input[type="submit"] {
+    background-color: $basic-color;
+    color: $bg-dark;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+        color: $basic-color;
+        background-color: $bg;
+        border: 1px solid $basic-color;
+    }
+}
+
+#results > div {
+    display: none;
+    border-radius: 5px;
+    padding: 2rem;
+    margin: 2px 2rem 2rem 2rem;
+    background-color: $bg-dark;
+
+    & h2 {
+        margin-bottom: 0.8em;
+    }
+
+    & .topic {
+        text-transform: capitalize;
+        color: $basic-light;
+    }
 }

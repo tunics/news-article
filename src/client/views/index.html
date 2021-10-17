@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <meta charset="utf-8" />
-        <title>Test</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Evaluate a News Article</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Andada+Pro&display=swap"
+            rel="stylesheet"
+        />
     </head>
 
     <body>
         <header>
-            <div class="">Logo</div>
-            <div class="">navigation</div>
+            <img src="../imgs/logo.svg" alt="Evaluate a news article" />
         </header>
 
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
+                    <h2>Please, enter the article url:</h2>
                     <input
                         id="name"
                         type="text"
                         name="input"
                         value=""
-                        placeholder="Name"
+                        placeholder="URL"
                     />
                     <input
                         type="submit"
                         name=""
-                        value="submit"
+                        value="Submit"
                         onclick="return Client.handleSubmit(event)"
                         onsubmit="return Client.handleSubmit(event)"
                     />
                 </form>
             </section>
 
-            <section>
-                <h2 id="results"></h2>
-                <div id="agreement"></div>
-                <div id="confidence"></div>
-                <div id="irony"></div>
-                <div id="subjectivity"></div>
+            <section id="results">
+                <div>
+                    <h2 id="results-title"></h2>
+                    <ul id="result-list"></ul>
+                </div>
             </section>
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>Developed by Tunics</p>
         </footer>
 
         <!-- <script>
