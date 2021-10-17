@@ -1,7 +1,6 @@
 import { result } from "lodash";
 
 const baseURL = "https://api.meaningcloud.com/sentiment-2.1";
-const apiKey = "c9f5695f138d2189d763edca7ccee474";
 const lang = "en";
 const results = document.getElementById("results").firstElementChild;
 const resultList = document.getElementById("result-list");
