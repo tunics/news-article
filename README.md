@@ -1,4 +1,4 @@
-# News Article
+# Evaluate a News Article
 
 Evaluate a news article with Natural Language Processing
 
