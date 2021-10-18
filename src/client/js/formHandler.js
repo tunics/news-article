@@ -5,6 +5,7 @@ const lang = "en";
 const results = document.getElementById("results");
 const resultList = document.getElementById("result-list");
 const resultsTxt = document.getElementById("results-title");
+const spinner = document.getElementById("spinner");
 
 // Async POST
 const postData = async (url = "", data = {}) => {
@@ -41,6 +42,7 @@ const getAnalysis = async (url, key, lang) => {
 
     try {
         const allData = await response.json();
+        spinner.style.display = "none";
         return allData;
     } catch (error) {
         console.log("error", error);
@@ -71,6 +73,8 @@ function handleSubmit(event) {
 
     // Check for a valid url
     if (Client.isUrl(formText)) {
+        results.style.display = "none";
+        spinner.style.display = "block";
         fetch("http://localhost:3000/key")
             .then((res) => res.json())
             .then(function (res) {

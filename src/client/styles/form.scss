@@ -47,3 +47,9 @@ input[type="submit"] {
         color: $basic-light;
     }
 }
+
+#spinner {
+    margin-top: 2rem;
+    display: none;
+    width: 100px;
+}
