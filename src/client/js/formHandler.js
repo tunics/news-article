@@ -2,7 +2,7 @@ import { result } from "lodash";
 
 const baseURL = "https://api.meaningcloud.com/sentiment-2.1";
 const lang = "en";
-const results = document.getElementById("results").firstElementChild;
+const results = document.getElementById("results");
 const resultList = document.getElementById("result-list");
 const resultsTxt = document.getElementById("results-title");
 
@@ -67,7 +67,7 @@ const updateUI = async () => {
 function handleSubmit(event) {
     event.preventDefault();
 
-    let formText = document.getElementById("name").value;
+    let formText = document.getElementById("url-txt").value;
 
     // Check for a valid url
     if (Client.isUrl(formText)) {
